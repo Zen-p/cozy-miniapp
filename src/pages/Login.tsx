@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { authenticateWithTelegram } from '../api/auth';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
