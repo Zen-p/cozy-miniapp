@@ -11,7 +11,7 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <BrowserRouter>
-          <div className="p-3">
+          <div className="p-3 topbar">
             <ThemeToggle />
           </div>
           <Routes>

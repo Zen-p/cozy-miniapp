@@ -39,3 +39,43 @@ body {
   background: var(--accent);
   color: #fff;
 }
+
+/* Theme switcher styles */
+.theme-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 9999px;
+  padding: 10px 14px;
+  background: var(--surface, #e5e7eb);
+  color: var(--text);
+  border: 2px solid rgba(0,0,0,0.08);
+  transition: background .2s ease, color .2s ease;
+}
+.theme-switch .switch-label {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .04em;
+}
+.theme-switch .switch-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,.12);
+  transition: left .25s ease, right .25s ease, background .2s ease;
+}
+.theme-switch .switch-thumb--left { left: 6px; }
+.theme-switch .switch-thumb--right { right: 6px; }
+
+/* Container alignment for toggle */
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+}
