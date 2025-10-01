@@ -12,17 +12,14 @@ export default function ThemeToggle() {
       aria-checked={isDark}
       className="theme-switch"
     >
-      <span className="switch-label">
-        {isDark ? 'NIGHTMODE' : 'DAYMODE'}
-      </span>
       <span
         className={`switch-thumb ${isDark ? 'switch-thumb--right' : 'switch-thumb--left'}`}
       >
         <img
           src={isDark ? '/moon.png' : '/sun.png'}
           alt={isDark ? 'Dark' : 'Light'}
-          width={24}
-          height={24}
+          width={16}
+          height={16}
         />
       </span>
     </button>
