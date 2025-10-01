@@ -39,11 +39,11 @@ export default function Login() {
   }, [isAuthenticated, login]);
 
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white p-6 rounded-lg shadow-md w-80 text-center">
-        <h2 className="text-lg font-medium mb-4">Authenticating…</h2>
+    <div className="h-screen flex items-center justify-center">
+      <div className="surface p-6 rounded-lg shadow-md w-80 text-center">
+        <h2 className="text-lg font-medium mb-4" style={{ color: 'var(--text)' }}>Authenticating…</h2>
         {loading && <Loader />}
-        {error && <ErrorMessage message={error} />}
+        {error && <div className="mt-3" style={{ color: 'var(--error)' }}><ErrorMessage message={error} /></div>}
       </div>
     </div>
   );

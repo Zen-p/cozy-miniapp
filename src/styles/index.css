@@ -2,6 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg: #F9FAFB;
+  --text: #1F2937;
+  --text-muted: #6B7280;
+  --accent: #E76F51;
+  --success: #2A9D8F;
+  --link: #2563EB;
+  --error: #DC2626;
+}
+
+.dark {
+  --bg: #111827;
+  --surface: #1F2937;
+  --text: #F9FAFB;
+  --text-muted: #9CA3AF;
+  --accent: #F4A261;
+  --success: #34D399;
+  --link: #3B82F6;
+  --error: #F87171;
+}
+
 body {
-  @apply bg-gray-50 text-gray-900;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.surface {
+  background: var(--surface, #ffffff);
+}
+
+.muted { color: var(--text-muted); }
+.link { color: var(--link); }
+.accent { color: var(--accent); }
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
 }
