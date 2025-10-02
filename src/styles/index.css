@@ -74,3 +74,27 @@ body {
   display: flex;
   justify-content: flex-end;
 }
+
+/* Welcome CTA animation */
+.welcome-cta {
+  border-radius: 9999px;
+  padding: 14px 28px;
+  font-weight: 700;
+  transition: transform .25s ease, background .25s ease, color .25s ease, width .8s ease, height .8s ease, border-radius .8s ease;
+  background: var(--accent);
+  color: #fff;
+}
+.dark .welcome-cta {
+  background: #ffffff;
+  color: #111827;
+}
+.welcome-cta--expand {
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  width: 100vw;
+  border-radius: 0;
+}
+
+@keyframes fadeout { from { opacity: 1 } to { opacity: 0 } }
+.animate-fadeout { animation: fadeout .6s ease forwards; }
