@@ -4,6 +4,7 @@ import { getTelegramWebApp } from '../utils/telegram';
 
 export default function Welcome() {
   const [fullscreenPadding, setFullscreenPadding] = useState(0);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [animating, setAnimating] = useState(false);
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,10 +13,14 @@ export default function Welcome() {
     const webApp = getTelegramWebApp();
     webApp?.expand?.();
     const isFullscreen = !!webApp?.isExpanded;
-    setFullscreenPadding(isFullscreen ? 40 : 0);
+    setFullscreenPadding(isFullscreen ? 56 : 0);
+
+    const scheme = (webApp?.colorScheme as 'light' | 'dark' | undefined) || 'light';
+    setTheme(scheme);
 
     const onThemeChanged = () => {
-      // handled globally by ThemeContext if present
+      const s = (webApp?.colorScheme as 'light' | 'dark' | undefined) || 'light';
+      setTheme(s);
     };
     webApp?.onEvent?.('themeChanged', onThemeChanged);
     return () => webApp?.offEvent?.('themeChanged', onThemeChanged as any);
@@ -33,7 +38,7 @@ export default function Welcome() {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen relative overflow-hidden"
+      className={`min-h-screen relative overflow-hidden ${theme === 'dark' ? 'welcome-bg-dark' : 'welcome-bg-light'}`}
       style={{ paddingTop: fullscreenPadding }}
     >
       {/* Waves background */}
@@ -56,7 +61,7 @@ export default function Welcome() {
 
       {/* Content */}
       <div className={`relative z-10 flex flex-col items-center justify-center px-6 pt-16 ${animating ? 'animate-fadeout' : ''}`} style={{ minHeight: '80vh' }}>
-        <img src="/persona.png" alt="CozyCode Character" className="mb-6" style={{ maxWidth: '70%', height: 'auto' }} />
+        <img src={theme === 'dark' ? '/persona_cozy.png' : '/persona.png'} alt="CozyCode Character" className="mb-6" style={{ maxWidth: '70%', height: 'auto' }} />
         <h1 className="text-3xl font-extrabold text-center mb-3" style={{ color: 'var(--text)' }}>
           Learn Java as easily as 2x2
         </h1>
