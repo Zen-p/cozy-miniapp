@@ -30,7 +30,6 @@ export default function Welcome() {
     if (!containerRef.current) return;
     setAnimating(true);
     setTimeout(() => {
-      localStorage.setItem('cozy_welcome_seen', '1');
       navigate('/dashboard');
     }, 800);
   };

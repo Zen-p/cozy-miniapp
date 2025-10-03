@@ -12,8 +12,7 @@ export default function Login() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      const seen = localStorage.getItem('cozy_welcome_seen') === '1';
-      window.location.replace(seen ? '/dashboa rd' : '/welcome');
+      window.location.replace('/welcome');
       return;
     }
 
@@ -29,8 +28,7 @@ export default function Login() {
         const resp = await authenticateWithTelegram(initData);
         login(resp.token);
         markReady();
-        const seen = localStorage.getItem('cozy_welcome_seen') === '1';
-        window.location.replace(seen ? '/dashboard' : '/welcome');
+        window.location.replace('/welcome');
       } catch (e: any) {
         console.error('Auth error:', e);
         setError(e.response?.data || e.message || 'Authentication failed');
