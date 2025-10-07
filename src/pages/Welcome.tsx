@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getTelegramTheme, getTelegramWebApp, getTelegramPlatform } from '../utils/telegram';
+import { getTelegramTheme, getTelegramWebApp } from '../utils/telegram';
 
 function WelcomeComponent() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => getTelegramTheme());
@@ -32,33 +32,12 @@ function WelcomeComponent() {
 
   const wavesSrc = useMemo(() => (theme === 'dark' ? '/lines_dark.png' : '/lines_light.png'), [theme]);
 
-  // In fullscreen (expanded), place waves directly under Telegram navigation controls.
-  // We use safe-area inset top plus a conservative nav height depending on platform.
-  const platform = getTelegramPlatform();
-  const navHeightPx = useMemo(() => {
-    if (!isExpanded) return 0;
-    switch (platform) {
-      case 'ios':
-        return 52; // iOS top bar approx height under WebView
-      case 'android':
-        return 48; // Android top bar approx height
-      case 'macos':
-      case 'tdesktop':
-      default:
-        return 44; // Desktop/unknown
-    }
-  }, [platform, isExpanded]);
-
-  const topOffset = isExpanded
-    ? `calc(var(--tg-safe-area-inset-top, 0px) + ${navHeightPx}px)`
-    : '0px';
-
   return (
     <div style={{ minHeight: '100vh' }}>
       <div
         style={{
           position: 'fixed',
-          top: topOffset,
+          top: 0,
           left: 0,
           right: 0,
           zIndex: 1,
