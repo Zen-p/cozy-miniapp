@@ -49,11 +49,11 @@ function WelcomeComponent() {
   }, []);
 
   return (
-    <div style={{ paddingTop: wavesHeight + 20 }}>
+    <div style={{ paddingTop: wavesHeight + 100 }}>
       <div
         style={{
           position: 'fixed',
-          top: 200,
+          top: 100,
           left: 0,
           right: 0,
           zIndex: 1,
