@@ -13,4 +13,14 @@ export function markReady() {
   webApp?.ready?.();
 }
 
+export type TelegramTheme = 'light' | 'dark';
+
+export function getTelegramTheme(): TelegramTheme {
+  const webApp = getTelegramWebApp();
+  const scheme = webApp?.colorScheme as 'light' | 'dark' | undefined;
+  if (scheme === 'dark') return 'dark';
+  return 'light';
+}
+
+
 

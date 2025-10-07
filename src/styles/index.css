@@ -26,6 +26,13 @@
 body {
   background: var(--bg);
   color: var(--text);
+  margin: 0;
+  padding: 0;
+}
+
+html, #root, body, div {
+  margin: 0;
+  padding: 0;
 }
 
 .surface {
