@@ -53,7 +53,7 @@ function WelcomeComponent() {
       <div
         style={{
           position: 'fixed',
-          top: 20,
+          top: 200,
           left: 0,
           right: 0,
           zIndex: 1,
