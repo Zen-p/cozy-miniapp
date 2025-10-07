@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { getTelegramTheme, getTelegramWebApp } from '../utils/telegram';
+import { getTelegramTheme, getTelegramWebApp, requestFullscreen } from '../utils/telegram';
 
 function WelcomeComponent() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => getTelegramTheme());
@@ -121,6 +121,10 @@ function WelcomeComponent() {
           fontSize: 20,
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
           cursor: 'pointer'
+        }}
+      onClick={() => {
+          requestFullscreen();
+          window.location.href = '/dashboard';
         }}
       >
         Get Starder

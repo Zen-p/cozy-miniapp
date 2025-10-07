@@ -20,6 +20,16 @@ export function expandWebApp() {
   } catch (_) {}
 }
 
+export function requestFullscreen() {
+  const docEl: any = document.documentElement as any;
+  const req = docEl?.requestFullscreen || docEl?.webkitRequestFullscreen || docEl?.msRequestFullscreen;
+  if (typeof req === 'function') {
+    try {
+      req.call(docEl);
+    } catch (_) {}
+  }
+}
+
 export type TelegramTheme = 'light' | 'dark';
 
 export function getTelegramTheme(): TelegramTheme {
