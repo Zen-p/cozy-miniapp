@@ -5,6 +5,9 @@ function WelcomeComponent() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => getTelegramTheme());
   const [wavesHeight, setWavesHeight] = useState<number>(0);
   const wavesImgRef = useRef<HTMLImageElement | null>(null);
+  const ctaRef = useRef<HTMLButtonElement | null>(null);
+  const [overlayActive, setOverlayActive] = useState(false);
+  const [overlayCenter, setOverlayCenter] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   useEffect(() => {
     const applyAll = () => {
@@ -49,11 +52,11 @@ function WelcomeComponent() {
   }, []);
 
   return (
-    <div style={{ paddingTop: wavesHeight + 100 }}>
+    <div style={{ paddingTop: wavesHeight + 90 }}>
       <div
         style={{
           position: 'fixed',
-          top: 100,
+          top: 90,
           left: 0,
           right: 0,
           zIndex: 1,
@@ -122,14 +125,44 @@ function WelcomeComponent() {
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
           cursor: 'pointer'
         }}
+      ref={ctaRef}
       onClick={() => {
+          // compute button center for circular reveal
+          const rect = ctaRef.current?.getBoundingClientRect();
+          const cx = (rect?.left ?? 0) + (rect?.width ?? 0) / 2;
+          const cy = (rect?.top ?? 0) + (rect?.height ?? 0) / 2 + window.scrollY;
+          setOverlayCenter({ x: cx, y: cy });
+          setOverlayActive(true);
           tgRequestFullscreen();
           requestFullscreen();
-          window.location.href = '/dashboard';
+          window.setTimeout(() => {
+            window.location.href = '/dashboard';
+          }, 650);
         }}
       >
         Get Starder
       </button>
+      {(
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 3,
+            pointerEvents: 'none',
+            backgroundColor: buttonBgColor,
+            // use CSS variables for center
+            ['--cx' as any]: overlayCenter.x + 'px',
+            ['--cy' as any]: overlayCenter.y + 'px',
+            clipPath: overlayActive
+              ? 'circle(200% at var(--cx) var(--cy))'
+              : 'circle(0 at var(--cx) var(--cy))',
+            transition: 'clip-path 650ms ease-out'
+          }}
+        />
+      )}
     </div>
   );
 }
