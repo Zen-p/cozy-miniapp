@@ -13,6 +13,13 @@ export function markReady() {
   webApp?.ready?.();
 }
 
+export function expandWebApp() {
+  const webApp = getTelegramWebApp();
+  try {
+    webApp?.expand?.();
+  } catch (_) {}
+}
+
 export type TelegramTheme = 'light' | 'dark';
 
 export function getTelegramTheme(): TelegramTheme {
