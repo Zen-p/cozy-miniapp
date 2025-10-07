@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { getTelegramTheme, getTelegramWebApp, requestFullscreen, tgRequestFullscreen } from '../utils/telegram';
+import { useAuth } from '../hooks/useAuth';
 
 function WelcomeComponent() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => getTelegramTheme());
+  const { isAuthenticated } = useAuth();
   const [wavesHeight, setWavesHeight] = useState<number>(0);
   const wavesImgRef = useRef<HTMLImageElement | null>(null);
   const ctaRef = useRef<HTMLButtonElement | null>(null);
@@ -149,7 +151,7 @@ function WelcomeComponent() {
           tgRequestFullscreen();
           requestFullscreen();
           window.setTimeout(() => {
-            window.location.href = '/dashboard';
+            window.location.href = isAuthenticated ? '/dashboard' : '/login';
           }, 650);
         }}
       >
