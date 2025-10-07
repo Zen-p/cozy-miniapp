@@ -22,5 +22,16 @@ export function getTelegramTheme(): TelegramTheme {
   return 'light';
 }
 
+export function getTelegramPlatform(): 'ios' | 'android' | 'macos' | 'tdesktop' | 'unrecognized' {
+  const webApp = getTelegramWebApp();
+  const platform = (webApp?.platform as string | undefined)?.toLowerCase();
+  if (!platform) return 'unrecognized';
+  if (platform.includes('ios')) return 'ios';
+  if (platform.includes('android')) return 'android';
+  if (platform.includes('macos')) return 'macos';
+  if (platform.includes('tdesktop') || platform.includes('desktop')) return 'tdesktop';
+  return 'unrecognized';
+}
+
 
 
