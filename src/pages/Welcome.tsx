@@ -3,13 +3,11 @@ import { getTelegramTheme, getTelegramWebApp } from '../utils/telegram';
 
 function WelcomeComponent() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => getTelegramTheme());
-  const [isExpanded, setIsExpanded] = useState<boolean>(() => !!getTelegramWebApp()?.isExpanded);
 
   useEffect(() => {
     const applyAll = () => {
       const current = getTelegramTheme();
       setTheme(current);
-      setIsExpanded(!!getTelegramWebApp()?.isExpanded);
       const bg = current === 'dark' ? '#172032' : '#F3E2D0';
       document.documentElement.style.backgroundColor = bg;
       document.body.style.backgroundColor = bg;
