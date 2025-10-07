@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { getTelegramTheme, getTelegramWebApp, requestFullscreen } from '../utils/telegram';
+import { getTelegramTheme, getTelegramWebApp, requestFullscreen, tgRequestFullscreen } from '../utils/telegram';
 
 function WelcomeComponent() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => getTelegramTheme());
@@ -123,6 +123,7 @@ function WelcomeComponent() {
           cursor: 'pointer'
         }}
       onClick={() => {
+          tgRequestFullscreen();
           requestFullscreen();
           window.location.href = '/dashboard';
         }}

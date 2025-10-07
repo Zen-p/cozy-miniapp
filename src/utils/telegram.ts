@@ -30,6 +30,37 @@ export function requestFullscreen() {
   }
 }
 
+// Telegram-specific fullscreen controls
+export function tgRequestFullscreen() {
+  const webApp = getTelegramWebApp();
+  try {
+    (webApp as any)?.requestFullscreen?.();
+  } catch (_) {}
+}
+
+export function tgExitFullscreen() {
+  const webApp = getTelegramWebApp();
+  try {
+    (webApp as any)?.exitFullscreen?.();
+  } catch (_) {}
+}
+
+export function tgIsFullscreen(): boolean {
+  const webApp = getTelegramWebApp();
+  try {
+    return !!(webApp as any)?.isFullscreen?.();
+  } catch (_) {
+    return false;
+  }
+}
+
+export function onTgFullscreenChanged(handler: (isFullscreen: boolean) => void) {
+  const webApp = getTelegramWebApp();
+  try {
+    (webApp as any)?.onEvent?.('fullscreenChanged', () => handler(tgIsFullscreen()));
+  } catch (_) {}
+}
+
 export type TelegramTheme = 'light' | 'dark';
 
 export function getTelegramTheme(): TelegramTheme {

@@ -5,11 +5,15 @@ import { Welcome } from './pages/Welcome';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
-import { expandWebApp } from './utils/telegram';
+import { expandWebApp, tgRequestFullscreen, onTgFullscreenChanged } from './utils/telegram';
 
 function App() {
   useEffect(() => {
     expandWebApp();
+    tgRequestFullscreen();
+    onTgFullscreenChanged(() => {
+      // no-op; hook ensures subscription doesn't throw
+    });
   }, []);
   return (
     <AuthProvider>
