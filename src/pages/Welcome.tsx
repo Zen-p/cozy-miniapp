@@ -8,6 +8,7 @@ function WelcomeComponent() {
   const ctaRef = useRef<HTMLButtonElement | null>(null);
   const [overlayActive, setOverlayActive] = useState(false);
   const [overlayCenter, setOverlayCenter] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [overlayRadius, setOverlayRadius] = useState<number>(0);
 
   useEffect(() => {
     const applyAll = () => {
@@ -125,13 +126,25 @@ function WelcomeComponent() {
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
           cursor: 'pointer'
         }}
-      ref={ctaRef}
-      onClick={() => {
+        ref={ctaRef}
+        onClick={() => {
+          if (overlayActive) return;
           // compute button center for circular reveal
           const rect = ctaRef.current?.getBoundingClientRect();
           const cx = (rect?.left ?? 0) + (rect?.width ?? 0) / 2;
           const cy = (rect?.top ?? 0) + (rect?.height ?? 0) / 2 + window.scrollY;
           setOverlayCenter({ x: cx, y: cy });
+          // compute radius to cover entire viewport (take farthest corner)
+          const vw = window.innerWidth;
+          const vh = window.innerHeight + window.scrollY; // include scroll offset for fixed overlay
+          const distances = [
+            Math.hypot(cx - 0, cy - 0),
+            Math.hypot(cx - vw, cy - 0),
+            Math.hypot(cx - 0, cy - vh),
+            Math.hypot(cx - vw, cy - vh)
+          ];
+          const needed = Math.max(...distances) * 1.25; // overshoot to avoid gaps
+          setOverlayRadius(needed);
           setOverlayActive(true);
           tgRequestFullscreen();
           requestFullscreen();
@@ -142,27 +155,26 @@ function WelcomeComponent() {
       >
         Get Starder
       </button>
-      {(
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 3,
-            pointerEvents: 'none',
-            backgroundColor: buttonBgColor,
-            // use CSS variables for center
-            ['--cx' as any]: overlayCenter.x + 'px',
-            ['--cy' as any]: overlayCenter.y + 'px',
-            clipPath: overlayActive
-              ? 'circle(200% at var(--cx) var(--cy))'
-              : 'circle(0 at var(--cx) var(--cy))',
-            transition: 'clip-path 650ms ease-out'
-          }}
-        />
-      )}
+      {
+        (
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 3,
+              pointerEvents: 'none',
+              backgroundColor: buttonBgColor,
+              clipPath: overlayActive
+                ? `circle(${overlayRadius}px at ${overlayCenter.x}px ${overlayCenter.y}px)`
+                : `circle(0 at ${overlayCenter.x}px ${overlayCenter.y}px)`,
+              transition: 'clip-path 650ms ease-out'
+            }}
+          />
+        )
+      }
     </div>
   );
 }
