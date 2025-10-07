@@ -15,7 +15,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    // Do not auto-authenticate from localStorage; require fresh login per session
+    const t = localStorage.getItem('cozy_token');
+    if (t) {
+      setToken(t);
+    }
     setReady(true);
   }, []);
 
