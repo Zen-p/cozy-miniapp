@@ -34,6 +34,8 @@ function WelcomeComponent() {
   const personaSrc = useMemo(() => (theme === 'dark' ? '/persona.png' : '/persona_cosy.png'), [theme]);
   const headingColor = useMemo(() => (theme === 'dark' ? '#F9FAFB' : '#3B5635'), [theme]);
   const subheadingColor = useMemo(() => (theme === 'dark' ? '#9CA3AF' : 'rgba(59, 86, 53, 0.5)'), [theme]);
+  const buttonBgColor = useMemo(() => (theme === 'dark' ? '#F9FAFB' : '#3B5635'), [theme]);
+  const buttonTextColor = useMemo(() => (theme === 'dark' ? '#172032' : '#F3E2D0'), [theme]);
 
   useEffect(() => {
     const updateHeight = () => {
@@ -47,7 +49,7 @@ function WelcomeComponent() {
   }, []);
 
   return (
-    <div style={{ minHeight: '100vh', paddingTop: wavesHeight }}>
+    <div style={{ paddingTop: wavesHeight }}>
       <div
         style={{
           position: 'fixed',
@@ -95,16 +97,34 @@ function WelcomeComponent() {
       <div
         style={{
           width: '85%',
-          margin: '45px auto 0',
+          margin: '30px auto 0',
           textAlign: 'left',
           color: subheadingColor,
-          fontSize: 25,
+          fontSize: 20,
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
           lineHeight: 1.3
         }}
       >
         Let's unravel the mysteries of programming together, in the coziest way possible.
       </div>
+      <button
+        style={{
+          width: '85%',
+          margin: '30px auto 0',
+          display: 'block',
+          backgroundColor: buttonBgColor,
+          color: buttonTextColor,
+          border: 'none',
+          borderRadius: 100,
+          padding: '14px 16px',
+          textAlign: 'center',
+          fontSize: 20,
+          fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
+          cursor: 'pointer'
+        }}
+      >
+        Get Starder
+      </button>
     </div>
   );
 }
