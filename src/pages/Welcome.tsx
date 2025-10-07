@@ -1,10 +1,34 @@
-export function Welcome() {
+import { useEffect } from 'react';
+import { getTelegramTheme, getTelegramWebApp } from '../utils/telegram';
+
+function WelcomeComponent() {
+  useEffect(() => {
+    const applyTheme = () => {
+      const theme = getTelegramTheme();
+      const bg = theme === 'dark' ? '#172032' : '#F3E2D0';
+      document.documentElement.style.backgroundColor = bg;
+      document.body.style.backgroundColor = bg;
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
+
+    applyTheme();
+    const webApp = getTelegramWebApp();
+    webApp?.onEvent?.('themeChanged', applyTheme);
+    return () => {
+      webApp?.offEvent?.('themeChanged', applyTheme as any);
+    };
+  }, []);
+
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-semibold">Welcome</h1>
-      <p className="mt-2 text-gray-600">Get started by logging in.</p>
-    </div>
+    <div style={{ minHeight: '100vh' }} />
   );
 }
+
+export default WelcomeComponent;
+export const Welcome = WelcomeComponent;
 
 
