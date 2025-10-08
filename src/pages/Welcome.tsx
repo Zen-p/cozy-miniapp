@@ -42,6 +42,7 @@ function WelcomeComponent() {
   const subheadingColor = useMemo(() => (theme === 'dark' ? '#9CA3AF' : 'rgba(59, 86, 53, 0.5)'), [theme]);
   const buttonBgColor = useMemo(() => (theme === 'dark' ? '#F9FAFB' : '#3B5635'), [theme]);
   const buttonTextColor = useMemo(() => (theme === 'dark' ? '#172032' : '#F3E2D0'), [theme]);
+  const shadowColor = useMemo(() => (theme === 'dark' ? 'rgba(0, 0, 0, 0.15)' : 'rgba(0, 0, 0, 0.15)'), [theme]);
 
   useEffect(() => {
     const updateHeight = () => {
@@ -71,7 +72,12 @@ function WelcomeComponent() {
           alt=""
           ref={wavesImgRef}
           onLoad={() => setWavesHeight(wavesImgRef.current?.clientHeight || 0)}
-          style={{ display: 'block', width: '100%', height: 'auto' }}
+          style={{ 
+            display: 'block', 
+            width: '100%', 
+            height: 'auto',
+            filter: `drop-shadow(0 4px 8px ${shadowColor})`
+          }}
         />
         <img
           src={personaSrc}
@@ -83,7 +89,8 @@ function WelcomeComponent() {
             transform: 'translate(-50%, -50%)',
             width: '78%',
             height: 'auto',
-            display: 'block'
+            display: 'block',
+            filter: `drop-shadow(0 4px 8px ${shadowColor})`
           }}
         />
       </div>
@@ -95,7 +102,8 @@ function WelcomeComponent() {
           color: headingColor,
           fontSize: 45,
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
-          lineHeight: 1.2
+          lineHeight: 1.2,
+          textShadow: `0 2px 4px ${shadowColor}`
         }}
       >
         Learn Java as easily as 2x2
@@ -108,7 +116,8 @@ function WelcomeComponent() {
           color: subheadingColor,
           fontSize: 20,
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
-          lineHeight: 1.3
+          lineHeight: 1.3,
+          textShadow: `0 2px 4px ${shadowColor}`
         }}
       >
         Let's unravel the mysteries of programming together, in the coziest way possible.
@@ -126,7 +135,8 @@ function WelcomeComponent() {
           textAlign: 'center',
           fontSize: 20,
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          boxShadow: `0 4px 12px ${shadowColor}`
         }}
         ref={ctaRef}
         onClick={() => {
