@@ -11,7 +11,7 @@ function App() {
   const [isTelegram, setIsTelegram] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Check if running inside Telegram WebApp
+
     const webApp = getTelegramWebApp();
     const isInTelegram = !!(webApp && webApp.initData);
     setIsTelegram(isInTelegram);
@@ -20,12 +20,12 @@ function App() {
       expandWebApp();
       tgRequestFullscreen();
       onTgFullscreenChanged(() => {
-        // no-op; hook ensures subscription doesn't throw
+
       });
     }
   }, []);
 
-  // Show Telegram-only message if not in Telegram
+
   if (isTelegram === false) {
     return (
       <div style={{
