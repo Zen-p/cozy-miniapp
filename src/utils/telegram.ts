@@ -61,6 +61,27 @@ export function onTgFullscreenChanged(handler: (isFullscreen: boolean) => void) 
   } catch (_) {}
 }
 
+// Haptic feedback
+export function triggerHapticFeedback(type: 'light' | 'medium' | 'heavy' | 'rigid' | 'soft' | 'selection' = 'light') {
+  const webApp = getTelegramWebApp();
+  try {
+    (webApp as any)?.HapticFeedback?.impactOccurred?.(type);
+  } catch (_) {
+    // Fallback to browser vibration API
+    if ('vibrate' in navigator) {
+      const patterns = {
+        light: [10],
+        medium: [20],
+        heavy: [30],
+        rigid: [15],
+        soft: [5],
+        selection: [5]
+      };
+      navigator.vibrate(patterns[type] || [10]);
+    }
+  }
+}
+
 export type TelegramTheme = 'light' | 'dark';
 
 export function getTelegramTheme(): TelegramTheme {

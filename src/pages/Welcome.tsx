@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { getTelegramTheme, getTelegramWebApp, requestFullscreen, tgRequestFullscreen } from '../utils/telegram';
+import { getTelegramTheme, getTelegramWebApp, requestFullscreen, tgRequestFullscreen, triggerHapticFeedback } from '../utils/telegram';
 import { useAuth } from '../hooks/useAuth';
 
 function WelcomeComponent() {
@@ -141,6 +141,7 @@ function WelcomeComponent() {
         ref={ctaRef}
         onClick={() => {
           if (overlayActive) return;
+          triggerHapticFeedback('medium');
           // compute button center for circular reveal
           const rect = ctaRef.current?.getBoundingClientRect();
           const cx = (rect?.left ?? 0) + (rect?.width ?? 0) / 2;
