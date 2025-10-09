@@ -16,7 +16,7 @@ function WelcomeComponent() {
     const applyAll = () => {
       const current = getTelegramTheme();
       setTheme(current);
-      const bg = current === 'dark' ? '#172032' : '#F3E2D0';
+      const bg = current === 'dark' ? '#181818' : '#FFFFFF';
       document.documentElement.style.backgroundColor = bg;
       document.body.style.backgroundColor = bg;
       if (current === 'dark') {
@@ -38,10 +38,10 @@ function WelcomeComponent() {
 
   const wavesSrc = useMemo(() => (theme === 'dark' ? '/lines_dark.png' : '/lines_light.png'), [theme]);
   const personaSrc = useMemo(() => (theme === 'dark' ? '/persona.png' : '/persona_cosy.png'), [theme]);
-  const headingColor = useMemo(() => (theme === 'dark' ? '#F9FAFB' : '#3B5635'), [theme]);
-  const subheadingColor = useMemo(() => (theme === 'dark' ? '#9CA3AF' : 'rgba(59, 86, 53, 0.5)'), [theme]);
-  const buttonBgColor = useMemo(() => (theme === 'dark' ? '#F9FAFB' : '#3B5635'), [theme]);
-  const buttonTextColor = useMemo(() => (theme === 'dark' ? '#172032' : '#F3E2D0'), [theme]);
+  const headingColor = useMemo(() => (theme === 'dark' ? '#FFFFFF' : '#D3191C'), [theme]);
+  const subheadingColor = useMemo(() => (theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : '#6E737C'), [theme]);
+  const buttonBgColor = useMemo(() => (theme === 'dark' ? '#D3191C' : '#000000'), [theme]);
+  const buttonTextColor = useMemo(() => (theme === 'dark' ? '#FFFFFF' : '#FFFFFF'), [theme]);
   const shadowColor = useMemo(() => (theme === 'dark' ? 'rgba(0, 0, 0, 0.15)' : 'rgba(0, 0, 0, 0.15)'), [theme]);
 
   useEffect(() => {
