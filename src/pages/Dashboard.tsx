@@ -60,12 +60,10 @@ export default function Dashboard() {
         style={{
           width: 340,
           height: 76,
-          fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
           margin: '5px auto 0',
           display: 'flex',
-          gap: 8,
           alignItems: 'center',
-          justifyContent: 'flex-start'
+          justifyContent: 'space-between'
         }}
       >
         {Array.from({ length: 7 }).map((_, idx) => {
@@ -79,7 +77,7 @@ export default function Dashboard() {
             borderRadius: 100,
             backgroundColor: isFirstThree ? '#D3191C' : isMiddle ? '#000000' : '#FFFFFF',
             border: isLastThree ? '1px solid #000000' : 'none',
-            boxSizing: isLastThree ? 'border-box' : undefined,
+            boxSizing: isLastThree ? 'border-box' as const : undefined,
             position: 'relative'
           };
 
