@@ -115,8 +115,8 @@ export default function Dashboard() {
             height: 76,
             borderRadius: 100,
             backgroundColor: isPast ? '#D3191C' : isToday ? '#000000' : '#FFFFFF',
-            border: isFuture ? '1px solid #000000' : 'none',
-            boxSizing: isFuture ? 'border-box' as const : undefined,
+            border: isToday ? '1px solid #FFFFFF' : 'none',
+            boxSizing: isToday ? 'border-box' as const : undefined,
             position: 'relative',
             boxShadow: `0 0 4px 1px ${itemShadowColor}`
           };
