@@ -17,6 +17,11 @@ function WelcomeComponent() {
       const current = getTelegramTheme();
       setTheme(current);
       const bg = current === 'dark' ? '#181818' : '#FFFFFF';
+      
+      // Add smooth transition for background color
+      document.documentElement.style.transition = 'background-color 0.8s ease-in-out';
+      document.body.style.transition = 'background-color 0.8s ease-in-out';
+      
       document.documentElement.style.backgroundColor = bg;
       document.body.style.backgroundColor = bg;
       if (current === 'dark') {

@@ -9,16 +9,14 @@ export default function Dashboard() {
     const applyAll = () => {
       const current = getTelegramTheme();
       setTheme(current);
-      
-      // Add smooth transition for background color (longer duration)
-      document.documentElement.style.transition = 'background-color 1.5s ease-in-out';
-      document.body.style.transition = 'background-color 1.5s ease-in-out';
-      
-      // Set background colors with smooth transition
       const bg = current === 'dark' ? '#0F0F0F' : '#FFFFFF';
+      
+      // Add smooth transition for background color
+      document.documentElement.style.transition = 'background-color 0.8s ease-in-out';
+      document.body.style.transition = 'background-color 0.8s ease-in-out';
+      
       document.documentElement.style.backgroundColor = bg;
       document.body.style.backgroundColor = bg;
-      
       if (current === 'dark') {
         document.documentElement.classList.add('dark');
       } else {
