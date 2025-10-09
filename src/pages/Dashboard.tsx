@@ -49,12 +49,36 @@ export default function Dashboard() {
           margin: '16px auto 0',
           textAlign: 'left',
           color: streakColor,
-          fontSize: 16,
+          fontSize: 32,
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
           lineHeight: 1.3
         }}
       >
         Your Streak: 2
+      </div>
+      <div
+        style={{
+          width: 340,
+          height: 76,
+          fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
+          margin: '5px auto 0',
+          display: 'flex',
+          gap: 8,
+          alignItems: 'center',
+          justifyContent: 'flex-start'
+        }}
+      >
+        {Array.from({ length: 9 }).map((_, idx) => (
+          <div
+            key={idx}
+            style={{
+              width: 34,
+              height: 76,
+              borderRadius: 100,
+              backgroundColor: '#000'
+            }}
+          />
+        ))}
       </div>
     </div>
   );
