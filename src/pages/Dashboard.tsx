@@ -38,7 +38,8 @@ export default function Dashboard() {
           color: titleColor,
           fontSize: 36,
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
-          lineHeight: 1.2
+          lineHeight: 1.2,
+          marginLeft: -13
         }}
       >
         Let’s Learn New Stuff!
@@ -51,7 +52,8 @@ export default function Dashboard() {
           color: streakColor,
           fontSize: 32,
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
-          lineHeight: 1.3
+          lineHeight: 1.3,
+          marginLeft: -13
         }}
       >
         Your Streak: 2
