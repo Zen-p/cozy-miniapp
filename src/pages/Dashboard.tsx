@@ -140,12 +140,27 @@ export default function Dashboard() {
                   right: 0,
                   bottom: 12,
                   textAlign: 'center',
-                  fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
-                  color: isFirstThree || isMiddle ? '#FFFFFF' : '#000000'
+                  fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif'
                 }}
               >
-                <div style={{ fontSize: 16, lineHeight: 1 }}>{weekDates[idx]}</div>
-                <div style={{ fontSize: 12, lineHeight: 1.1 }}>{weekDays[idx]}</div>
+                <div
+                  style={{
+                    fontSize: 16,
+                    lineHeight: 1,
+                    color: isFirstThree || isMiddle ? '#FFFFFF' : '#000000'
+                  }}
+                >
+                  {weekDates[idx]}
+                </div>
+                <div
+                  style={{
+                    fontSize: 12,
+                    lineHeight: 1.1,
+                    color: isFirstThree ? '#000000' : isMiddle ? '#FFFFFF' : '#000000'
+                  }}
+                >
+                  {weekDays[idx]}
+                </div>
               </div>
             </div>
           );
