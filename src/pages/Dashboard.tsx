@@ -92,31 +92,45 @@ export default function Dashboard() {
         }}
       >
         {Array.from({ length: 7 }).map((_, idx) => {
-          const isFirstThree = idx <= 2;
-          const isMiddle = idx === 3;
-          const isLastThree = idx >= 4;
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          
+          const currentDate = new Date();
+          const day = currentDate.getDay();
+          const diffToMonday = ((day + 6) % 7);
+          const monday = new Date(currentDate);
+          monday.setHours(0, 0, 0, 0);
+          monday.setDate(currentDate.getDate() - diffToMonday);
+          
+          const elementDate = new Date(monday);
+          elementDate.setDate(monday.getDate() + idx);
+          elementDate.setHours(0, 0, 0, 0);
+          
+          const isPast = elementDate < today;
+          const isToday = elementDate.getTime() === today.getTime();
+          const isFuture = elementDate > today;
 
           const baseStyle: React.CSSProperties = {
             width: 34,
             height: 76,
             borderRadius: 100,
-            backgroundColor: isFirstThree ? '#D3191C' : isMiddle ? '#000000' : '#FFFFFF',
-            border: isLastThree ? '1px solid #000000' : 'none',
-            boxSizing: isLastThree ? 'border-box' as const : undefined,
+            backgroundColor: isPast ? '#D3191C' : isToday ? '#000000' : '#FFFFFF',
+            border: isFuture ? '1px solid #000000' : 'none',
+            boxSizing: isFuture ? 'border-box' as const : undefined,
             position: 'relative',
             boxShadow: `0 0 4px 1px ${itemShadowColor}`
           };
 
           return (
             <div key={idx} style={baseStyle}>
-              {isFirstThree && (
+              {isPast && (
                 <img
                   src={idx === 0 ? '/dashbord/cross.png' : '/dashbord/check.png'}
                   alt=""
                   style={{ width: 24, height: 24, display: 'block', margin: '5px auto 0' }}
                 />
               )}
-              {isMiddle && (
+              {isToday && (
                 <div
                   style={{
                     width: 24,
@@ -127,7 +141,7 @@ export default function Dashboard() {
                   }}
                 />
               )}
-              {isLastThree && (
+              {isFuture && (
                 <div
                   style={{
                     width: 9,
@@ -152,7 +166,7 @@ export default function Dashboard() {
                   style={{
                     fontSize: 16,
                     lineHeight: 1,
-                    color: isFirstThree || isMiddle ? '#FFFFFF' : '#000000'
+                    color: isPast || isToday ? '#FFFFFF' : '#000000'
                   }}
                 >
                   {weekDates[idx]}
@@ -161,7 +175,7 @@ export default function Dashboard() {
                   style={{
                     fontSize: 12,
                     lineHeight: 1.1,
-                    color: isFirstThree ? '#000000' : isMiddle ? '#FFFFFF' : '#000000'
+                    color: isPast ? '#000000' : isToday ? '#FFFFFF' : '#000000'
                   }}
                 >
                   {weekDays[idx]}
