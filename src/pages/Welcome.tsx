@@ -27,12 +27,33 @@ function WelcomeComponent() {
     };
 
     applyAll();
-    const webApp = getTelegramWebApp();
-    webApp?.onEvent?.('themeChanged', applyAll);
-    webApp?.onEvent?.('viewportChanged', applyAll);
+
+    let cleanup: (() => void) | null = null;
+    const trySubscribe = () => {
+      const webApp = getTelegramWebApp();
+      if (webApp?.onEvent && webApp?.offEvent) {
+        webApp.onEvent('themeChanged', applyAll);
+        webApp.onEvent('viewportChanged', applyAll);
+        cleanup = () => {
+          webApp.offEvent('themeChanged', applyAll as any);
+          webApp.offEvent('viewportChanged', applyAll as any);
+        };
+        return true;
+      }
+      return false;
+    };
+
+    if (!trySubscribe()) {
+      const id = window.setInterval(() => {
+        if (trySubscribe()) {
+          window.clearInterval(id);
+        }
+      }, 200);
+      cleanup = () => window.clearInterval(id);
+    }
+
     return () => {
-      webApp?.offEvent?.('themeChanged', applyAll as any);
-      webApp?.offEvent?.('viewportChanged', applyAll as any);
+      cleanup?.();
     };
   }, []);
 
