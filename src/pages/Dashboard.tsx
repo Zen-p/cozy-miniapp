@@ -68,17 +68,55 @@ export default function Dashboard() {
           justifyContent: 'flex-start'
         }}
       >
-        {Array.from({ length: 9 }).map((_, idx) => (
-          <div
-            key={idx}
-            style={{
-              width: 34,
-              height: 76,
-              borderRadius: 100,
-              backgroundColor: '#000'
-            }}
-          />
-        ))}
+        {Array.from({ length: 7 }).map((_, idx) => {
+          const isFirstThree = idx <= 2;
+          const isMiddle = idx === 3;
+          const isLastThree = idx >= 4;
+
+          const baseStyle: React.CSSProperties = {
+            width: 34,
+            height: 76,
+            borderRadius: 100,
+            backgroundColor: isFirstThree ? '#D3191C' : isMiddle ? '#000000' : '#FFFFFF',
+            border: isLastThree ? '1px solid #000000' : 'none',
+            boxSizing: isLastThree ? 'border-box' : undefined,
+            position: 'relative'
+          };
+
+          return (
+            <div key={idx} style={baseStyle}>
+              {isFirstThree && (
+                <img
+                  src={idx === 0 ? '/dashbord/cross.png' : '/dashbord/check.png'}
+                  alt=""
+                  style={{ width: 24, height: 24, display: 'block', margin: '5px auto 0' }}
+                />
+              )}
+              {isMiddle && (
+                <div
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: '50%',
+                    backgroundColor: '#FFFFFF',
+                    margin: '5px auto 0'
+                  }}
+                />
+              )}
+              {isLastThree && (
+                <div
+                  style={{
+                    width: 9,
+                    height: 9,
+                    borderRadius: '50%',
+                    backgroundColor: '#000000',
+                    margin: '11px auto 0'
+                  }}
+                />
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
