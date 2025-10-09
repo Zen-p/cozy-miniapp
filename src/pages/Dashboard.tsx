@@ -27,6 +27,10 @@ export default function Dashboard() {
     () => (getTelegramTheme() === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'),
     []
   );
+  const itemShadowColor = useMemo(
+    () => (getTelegramTheme() === 'dark' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(0, 0, 0, 0.25)'),
+    []
+  );
 
   // Build current week dates (Mon..Sun)
   const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -99,7 +103,8 @@ export default function Dashboard() {
             backgroundColor: isFirstThree ? '#D3191C' : isMiddle ? '#000000' : '#FFFFFF',
             border: isLastThree ? '1px solid #000000' : 'none',
             boxSizing: isLastThree ? 'border-box' as const : undefined,
-            position: 'relative'
+            position: 'relative',
+            boxShadow: `0 0 4px 1px ${itemShadowColor}`
           };
 
           return (
