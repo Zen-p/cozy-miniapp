@@ -28,6 +28,25 @@ export default function Dashboard() {
     []
   );
 
+  // Build current week dates (Mon..Sun)
+  const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const weekDates: number[] = useMemo(() => {
+    const now = new Date();
+    const day = now.getDay(); // 0..6 (Sun..Sat)
+    // compute Monday as start of week
+    const diffToMonday = ((day + 6) % 7); // 0 if Monday
+    const monday = new Date(now);
+    monday.setHours(0, 0, 0, 0);
+    monday.setDate(now.getDate() - diffToMonday);
+    const arr: number[] = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(monday);
+      d.setDate(monday.getDate() + i);
+      arr.push(d.getDate());
+    }
+    return arr;
+  }, []);
+
   return (
     <div style={{ paddingTop: 90, margin: 0 }}>
       <div
@@ -114,6 +133,20 @@ export default function Dashboard() {
                   }}
                 />
               )}
+              <div
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  bottom: 12,
+                  textAlign: 'center',
+                  fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
+                  color: isFirstThree || isMiddle ? '#FFFFFF' : '#000000'
+                }}
+              >
+                <div style={{ fontSize: 16, lineHeight: 1 }}>{weekDates[idx]}</div>
+                <div style={{ fontSize: 12, lineHeight: 1.1 }}>{weekDays[idx]}</div>
+              </div>
             </div>
           );
         })}
