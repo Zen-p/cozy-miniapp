@@ -37,7 +37,7 @@ function WelcomeComponent() {
   }, []);
 
   const wavesSrc = useMemo(() => (theme === 'dark' ? '/lines_dark.png' : '/lines_light.png'), [theme]);
-  const personaSrc = useMemo(() => (theme === 'dark' ? '/persona.png' : '/persona_cosy.png'), [theme]);
+  const personaSrc = useMemo(() => (theme === 'dark' ? '/persona.png' : '/persona.png'), [theme]);
   const headingColor = useMemo(() => (theme === 'dark' ? '#FFFFFF' : '#D3191C'), [theme]);
   const subheadingColor = useMemo(() => (theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : '#6E737C'), [theme]);
   const buttonBgColor = useMemo(() => (theme === 'dark' ? '#D3191C' : '#000000'), [theme]);
