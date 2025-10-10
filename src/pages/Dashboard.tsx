@@ -109,7 +109,9 @@ export default function Dashboard() {
           const isDarkTheme = getTelegramTheme() === 'dark';
           const borderForState = isPast
             ? (isDarkTheme ? '1px solid #FFFFFF' : '1px solid #000000')
-            : (isToday ? (isDarkTheme ? '1px solid #FFFFFF' : 'none') : 'none');
+            : isToday
+            ? (isDarkTheme ? '1px solid #FFFFFF' : 'none')
+            : (isDarkTheme ? 'none' : '1px solid #000000');
 
           const baseStyle: React.CSSProperties = {
             width: 34,
