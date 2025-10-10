@@ -202,6 +202,7 @@ export default function Dashboard() {
           justifyContent: 'flex-start',
           backgroundColor: '#D3191C',
           border: cardBorder,
+          boxSizing: 'border-box',
           borderRadius: 32,
           padding: 0,
           cursor: 'pointer'
