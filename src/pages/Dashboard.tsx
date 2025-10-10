@@ -273,6 +273,9 @@ export default function Dashboard() {
           padding: 0,
           cursor: 'pointer'
         }}
+        onClick={() => {
+          window.location.href = '/learn/spring';
+        }}
       >
         <img
           src={'/dashbord/persona_spring.png'}
