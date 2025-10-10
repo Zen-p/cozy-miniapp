@@ -313,7 +313,7 @@ export default function Dashboard() {
               // paddingRight: 12
             }}
           >
-            From Zero To Hero
+          {`From Zero \nTo Hero.`}
           </div>
         </div>
       </button>
