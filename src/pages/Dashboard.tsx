@@ -252,8 +252,9 @@ export default function Dashboard() {
               // paddingRight: 12
             }}
           >
-            {`Straight to the point.
-            Straight to Java.`}
+            Straight to the point.
+            <br />
+            Straight to Java.
           </div>
         </div>
       </button>
@@ -315,7 +316,7 @@ export default function Dashboard() {
             }}
           >
           From Zero
-          
+          <br />
           To Hero.
           </div>
         </div>
