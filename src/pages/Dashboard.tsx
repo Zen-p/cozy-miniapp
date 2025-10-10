@@ -229,8 +229,8 @@ export default function Dashboard() {
               textAlign: 'left',
               marginTop: 17,
               lineHeight: 1.1,
-              paddingLeft: 12,
-              paddingRight: 12
+              // paddingLeft: 12,
+              // paddingRight: 12
             }}
           >
             Learn Java
@@ -243,8 +243,8 @@ export default function Dashboard() {
               fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
               textAlign: 'left',
               lineHeight: 1.2,
-              paddingLeft: 12,
-              paddingRight: 12
+              // paddingLeft: 12,
+              // paddingRight: 12
             }}
           >
             {`Straight to the point.\nStraight to Java.`}
