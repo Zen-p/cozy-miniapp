@@ -188,6 +188,69 @@ export default function Dashboard() {
           );
         })}
       </div>
+      <button
+        style={{
+          width: 358,
+          height: 170,
+          margin: '20px auto 0',
+          display: 'flex',
+          alignItems: 'stretch',
+          justifyContent: 'flex-start',
+          backgroundColor: '#D3191C',
+          border: 'none',
+          borderRadius: 32,
+          padding: 0,
+          cursor: 'pointer'
+        }}
+        onClick={() => {
+          window.location.href = '/learn/java';
+        }}
+      >
+        <img
+          src={'/dashbord/persona_coffee.png'}
+          alt=""
+          style={{ width: 170, height: 170, display: 'block', borderTopLeftRadius: 28, borderBottomLeftRadius: 28 }}
+        />
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start'
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              color: '#FFFFFF',
+              fontSize: 32,
+              fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
+              textAlign: 'left',
+              marginTop: 17,
+              lineHeight: 1.1,
+              paddingLeft: 12,
+              paddingRight: 12
+            }}
+          >
+            Learn Java
+          </div>
+          <div
+            style={{
+              width: '100%',
+              color: '#000000',
+              fontSize: 20,
+              fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
+              textAlign: 'left',
+              lineHeight: 1.2,
+              paddingLeft: 12,
+              paddingRight: 12
+            }}
+          >
+            {`Straight to the point.\nStraight to Java.`}
+          </div>
+        </div>
+      </button>
     </div>
   );
 }

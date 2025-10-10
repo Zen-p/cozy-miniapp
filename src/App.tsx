@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import { Welcome } from './pages/Welcome';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './routes/ProtectedRoute';
+import JavaLearn from './pages/JavaLearn';
 import { AuthProvider } from './context/AuthContext';
 import { expandWebApp, tgRequestFullscreen, onTgFullscreenChanged, getTelegramWebApp } from './utils/telegram';
 
@@ -82,6 +83,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/learn/java" element={<JavaLearn />} />
           <Route
             path="/dashboard"
             element={
