@@ -27,6 +27,10 @@ export default function Dashboard() {
     () => (getTelegramTheme() === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'),
     []
   );
+  const cardBorder = useMemo(
+    () => (getTelegramTheme() === 'dark' ? '1px solid #FFFFFF' : '1px solid #000000'),
+    []
+  );
 
   // Build current week dates (Mon..Sun)
   const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -197,7 +201,7 @@ export default function Dashboard() {
           alignItems: 'stretch',
           justifyContent: 'flex-start',
           backgroundColor: '#D3191C',
-          border: 'none',
+          border: cardBorder,
           borderRadius: 32,
           padding: 0,
           cursor: 'pointer'
