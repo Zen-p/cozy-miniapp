@@ -134,7 +134,7 @@ export default function Dashboard() {
                 <img
                   src={idx === 0 ? '/dashbord/cross.png' : '/dashbord/check.png'}
                   alt=""
-                  style={{ width: 24, height: 24, display: 'block', margin: '5px auto 0' }}
+                  style={{ width: 24, height: 24, display: 'block', margin: '4px auto 0' }}
                 />
               )}
               {isToday && (
