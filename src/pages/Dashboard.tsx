@@ -10,11 +10,6 @@ export default function Dashboard() {
       const current = getTelegramTheme();
       setTheme(current);
       const bg = current === 'dark' ? '#0F0F0F' : '#FFFFFF';
-      
-      // Add smooth transition for background color
-      document.documentElement.style.transition = 'background-color 0.8s ease-in-out';
-      document.body.style.transition = 'background-color 0.8s ease-in-out';
-      
       document.documentElement.style.backgroundColor = bg;
       document.body.style.backgroundColor = bg;
       if (current === 'dark') {
@@ -30,10 +25,6 @@ export default function Dashboard() {
   const titleColor = useMemo(() => (getTelegramTheme() === 'dark' ? '#FFFFFF' : '#000000'), []);
   const streakColor = useMemo(
     () => (getTelegramTheme() === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'),
-    []
-  );
-  const itemShadowColor = useMemo(
-    () => (getTelegramTheme() === 'dark' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(0, 0, 0, 0.25)'),
     []
   );
 
@@ -115,15 +106,20 @@ export default function Dashboard() {
           const isToday = elementDate.getTime() === today.getTime();
           const isFuture = elementDate > today;
 
+          const isDarkTheme = getTelegramTheme() === 'dark';
+          const borderForState = isPast
+            ? (isDarkTheme ? '1px solid #FFFFFF' : '1px solid #000000')
+            : (isToday ? (isDarkTheme ? '1px solid #FFFFFF' : 'none') : 'none');
+
           const baseStyle: React.CSSProperties = {
             width: 34,
             height: 76,
             borderRadius: 100,
             backgroundColor: isPast ? '#D3191C' : isToday ? '#000000' : '#FFFFFF',
-            border: isToday ? '1px solid #FFFFFF' : 'none',
-            boxSizing: isToday ? 'border-box' as const : undefined,
+            border: borderForState,
+            boxSizing: borderForState !== 'none' ? 'border-box' as const : undefined,
             position: 'relative',
-            boxShadow: `0 0 4px 1px ${itemShadowColor}`
+            // no shadow per latest request
           };
 
           return (
