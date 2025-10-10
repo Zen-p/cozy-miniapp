@@ -256,6 +256,67 @@ export default function Dashboard() {
           </div>
         </div>
       </button>
+      <button
+        style={{
+          width: 358,
+          height: 170,
+          margin: '19px auto 0',
+          display: 'flex',
+          alignItems: 'stretch',
+          justifyContent: 'flex-start',
+          backgroundColor: getTelegramTheme() === 'dark' ? '#1A1A1A' : '#FFFFFF',
+          border: cardBorder,
+          boxSizing: 'border-box',
+          borderRadius: 32,
+          padding: 0,
+          cursor: 'pointer'
+        }}
+      >
+        <img
+          src={'/dashbord/persona_spring.png'}
+          alt=""
+          style={{ width: 170, height: 170, display: 'block', borderTopLeftRadius: 28, borderBottomLeftRadius: 28 }}
+        />
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start'
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              color: getTelegramTheme() === 'dark' ? '#FFFFFF' : '#000000',
+              fontSize: 32,
+              fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
+              textAlign: 'left',
+              marginTop: 17,
+              lineHeight: 1.2,
+              // paddingLeft: 12,
+              // paddingRight: 12
+            }}
+          >
+            Learn Spring
+          </div>
+          <div
+            style={{
+              width: '100%',
+              color: getTelegramTheme() === 'dark' ? 'rgba(255, 255, 255, 0.5)' : '#D3191C',
+              fontSize: 20,
+              fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
+              textAlign: 'left',
+              lineHeight: 1.2,
+              // paddingLeft: 12,
+              // paddingRight: 12
+            }}
+          >
+            From Zero To Hero
+          </div>
+        </div>
+      </button>
     </div>
   );
 }
