@@ -5,8 +5,6 @@ import { useAuth } from '../hooks/useAuth';
 function WelcomeComponent() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => getTelegramTheme());
   const { isAuthenticated } = useAuth();
-  const [wavesHeight, setWavesHeight] = useState<number>(0);
-  const wavesImgRef = useRef<HTMLImageElement | null>(null);
   const ctaRef = useRef<HTMLButtonElement | null>(null);
   const [overlayActive, setOverlayActive] = useState(false);
   const [overlayCenter, setOverlayCenter] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -57,107 +55,102 @@ function WelcomeComponent() {
     };
   }, []);
 
-  const wavesSrc = useMemo(() => (theme === 'dark' ? '/lines_dark.png' : '/lines_light.png'), [theme]);
   const personaSrc = useMemo(() => (theme === 'dark' ? '/persona.png' : '/persona.png'), [theme]);
-  const headingColor = useMemo(() => (theme === 'dark' ? '#FFFFFF' : '#D3191C'), [theme]);
+  const headingColor = useMemo(() => (theme === 'dark' ? '#FFFFFF' : '#000000'), [theme]);
   const subheadingColor = useMemo(() => (theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : '#6E737C'), [theme]);
-  const buttonBgColor = useMemo(() => (theme === 'dark' ? '#D3191C' : '#000000'), [theme]);
-  const buttonTextColor = useMemo(() => (theme === 'dark' ? '#FFFFFF' : '#FFFFFF'), [theme]);
-  const shadowColor = useMemo(() => (theme === 'dark' ? 'rgba(0, 0, 0, 0.15)' : 'rgba(0, 0, 0, 0.15)'), [theme]);
-
-  useEffect(() => {
-    const updateHeight = () => {
-      if (wavesImgRef.current) {
-        setWavesHeight(wavesImgRef.current.clientHeight);
-      }
-    };
-    updateHeight();
-    window.addEventListener('resize', updateHeight);
-    return () => window.removeEventListener('resize', updateHeight);
-  }, []);
+  const buttonBgColor = useMemo(() => '#D3191C', []);
+  const buttonTextColor = useMemo(() => '#FFFFFF', []);
 
   return (
-    <div style={{ paddingTop: wavesHeight + 90 }}>
+    <div style={{ 
+      minHeight: '100vh',
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '0 20px',
+      overflow: 'hidden'
+    }}>
+      {/* Background circles */}
       <div
         style={{
-          position: 'fixed',
-          top: 90,
-          left: 0,
-          right: 0,
-          zIndex: 1,
-          pointerEvents: 'none'
+          position: 'absolute',
+          top: theme === 'dark' ? '-130px' : '0px',
+          left: theme === 'dark' ? '-130px' : '0px',
+          width: '1063px',
+          height: '1033px',
+          borderRadius: '516.5px',
+          backgroundColor: '#FFFFFF',
+          zIndex: 0
         }}
-      >
-        <img
-          src={wavesSrc}
-          alt=""
-          ref={wavesImgRef}
-          onLoad={() => setWavesHeight(wavesImgRef.current?.clientHeight || 0)}
-          style={{ 
-            display: 'block', 
-            width: '100%', 
-            height: 'auto',
-            filter: `drop-shadow(0 4px 8px ${shadowColor})`
-          }}
-        />
-        <img
-          src={personaSrc}
-          alt=""
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '78%',
-            height: 'auto',
-            display: 'block',
-            filter: `drop-shadow(0 4px 8px ${shadowColor})`
-          }}
-        />
-      </div>
+      />
+      
+      {/* Persona image */}
+      <img
+        src={personaSrc}
+        alt=""
+        style={{
+          width: '974px',
+          height: '883px',
+          borderRadius: '304px',
+          objectFit: 'cover',
+          marginBottom: '430px',
+          zIndex: 1,
+          position: 'relative'
+        }}
+      />
+
+      {/* Main heading */}
       <div
         style={{
-          width: '85%',
-          margin: '0 auto',
+          width: '864px',
           textAlign: 'left',
           color: headingColor,
-          fontSize: 45,
+          fontSize: '128px',
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
-          lineHeight: 1.2,
-          textShadow: `0 2px 4px ${shadowColor}`
+          lineHeight: 1.157,
+          marginBottom: '134px',
+          zIndex: 2,
+          position: 'relative'
         }}
       >
         Learn Java as easily as 2x2
       </div>
+
+      {/* Subheading */}
       <div
         style={{
-          width: '85%',
-          margin: '30px auto 0',
+          width: '1007px',
           textAlign: 'left',
           color: subheadingColor,
-          fontSize: 20,
+          fontSize: '64px',
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
-          lineHeight: 1.3,
-          textShadow: `0 2px 4px ${shadowColor}`
+          lineHeight: 1.157,
+          marginBottom: '134px',
+          zIndex: 2,
+          position: 'relative'
         }}
       >
         Let's unravel the mysteries of programming together, in the coziest way possible.
       </div>
+
+      {/* Get Started button */}
       <button
         style={{
-          width: '85%',
-          margin: '30px auto 0',
-          display: 'block',
+          width: '1007px',
+          height: '213px',
           backgroundColor: buttonBgColor,
           color: buttonTextColor,
           border: 'none',
-          borderRadius: 100,
-          padding: '14px 16px',
-          textAlign: 'center',
-          fontSize: 20,
+          borderRadius: '143px',
+          fontSize: '64px',
           fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
+          lineHeight: 1.157,
+          textAlign: 'center',
           cursor: 'pointer',
-          boxShadow: `0 4px 12px ${shadowColor}`
+          zIndex: 2,
+          position: 'relative'
         }}
         ref={ctaRef}
         onClick={() => {
@@ -187,28 +180,26 @@ function WelcomeComponent() {
           }, 650);
         }}
       >
-        Get Starder
+        Get Started
       </button>
-      {
-        (
-          <div
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 3,
-              pointerEvents: 'none',
-              backgroundColor: buttonBgColor,
-              clipPath: overlayActive
-                ? `circle(${overlayRadius}px at ${overlayCenter.x}px ${overlayCenter.y}px)`
-                : `circle(0 at ${overlayCenter.x}px ${overlayCenter.y}px)`,
-              transition: 'clip-path 650ms ease-out'
-            }}
-          />
-        )
-      }
+
+      {/* Overlay animation */}
+      {overlayActive && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 3,
+            pointerEvents: 'none',
+            backgroundColor: buttonBgColor,
+            clipPath: `circle(${overlayRadius}px at ${overlayCenter.x}px ${overlayCenter.y}px)`,
+            transition: 'clip-path 650ms ease-out'
+          }}
+        />
+      )}
     </div>
   );
 }
