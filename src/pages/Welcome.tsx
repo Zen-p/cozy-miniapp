@@ -6,6 +6,7 @@ function WelcomeComponent() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => getTelegramTheme());
   const { isAuthenticated } = useAuth();
   const [wavesHeight, setWavesHeight] = useState<number>(0);
+  const [isDesktop, setIsDesktop] = useState<boolean>(false);
   const wavesImgRef = useRef<HTMLImageElement | null>(null);
   const ctaRef = useRef<HTMLButtonElement | null>(null);
   const [overlayActive, setOverlayActive] = useState(false);
@@ -76,6 +77,153 @@ function WelcomeComponent() {
     return () => window.removeEventListener('resize', updateHeight);
   }, []);
 
+  useEffect(() => {
+    const checkDesktop = () => {
+      const isDesktopView = window.innerWidth >= 768 || window.innerHeight < window.innerWidth;
+      setIsDesktop(isDesktopView);
+    };
+    
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
+
+  // Desktop layout based on Figma design
+  if (isDesktop) {
+    return (
+      <div style={{ 
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '40px',
+        maxWidth: '1200px',
+        margin: '0 auto'
+      }}>
+        {/* Desktop waves container */}
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            maxWidth: '800px',
+            marginBottom: '60px',
+            zIndex: 1
+          }}
+        >
+          <img
+            src={wavesSrc}
+            alt=""
+            ref={wavesImgRef}
+            onLoad={() => setWavesHeight(wavesImgRef.current?.clientHeight || 0)}
+            style={{ 
+              display: 'block', 
+              width: '100%', 
+              height: 'auto',
+              filter: `drop-shadow(0 8px 16px ${shadowColor})`
+            }}
+          />
+          <img
+            src={personaSrc}
+            alt=""
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '60%',
+              height: 'auto',
+              display: 'block',
+              filter: `drop-shadow(0 8px 16px ${shadowColor})`
+            }}
+          />
+        </div>
+
+        {/* Desktop content */}
+        <div style={{ textAlign: 'center', maxWidth: '900px' }}>
+          <h1
+            style={{
+              color: headingColor,
+              fontSize: 'clamp(48px, 8vw, 128px)',
+              fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
+              lineHeight: 1.1,
+              marginBottom: '40px',
+              textShadow: `0 4px 8px ${shadowColor}`
+            }}
+          >
+            Learn Java as easily as 2x2
+          </h1>
+          
+          <p
+            style={{
+              color: subheadingColor,
+              fontSize: 'clamp(24px, 4vw, 64px)',
+              fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
+              lineHeight: 1.2,
+              marginBottom: '60px',
+              textShadow: `0 2px 4px ${shadowColor}`
+            }}
+          >
+            Let's unravel the mysteries of programming together, in the coziest way possible.
+          </p>
+          
+          <button
+            style={{
+              backgroundColor: buttonBgColor,
+              color: buttonTextColor,
+              border: 'none',
+              borderRadius: '143px',
+              padding: '32px 80px',
+              fontSize: 'clamp(32px, 5vw, 64px)',
+              fontFamily: '"Arial Rounded MT Bold", "Apple Symbols", Arial, sans-serif',
+              cursor: 'pointer',
+              boxShadow: `0 8px 24px ${shadowColor}`,
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+            }}
+            ref={ctaRef}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = `0 12px 32px ${shadowColor}`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = `0 8px 24px ${shadowColor}`;
+            }}
+            onClick={() => {
+              if (overlayActive) return;
+              triggerHapticFeedback('medium');
+              // compute button center for circular reveal
+              const rect = ctaRef.current?.getBoundingClientRect();
+              const cx = (rect?.left ?? 0) + (rect?.width ?? 0) / 2;
+              const cy = (rect?.top ?? 0) + (rect?.height ?? 0) / 2 + window.scrollY;
+              setOverlayCenter({ x: cx, y: cy });
+              // compute radius to cover entire viewport (take farthest corner)
+              const vw = window.innerWidth;
+              const vh = window.innerHeight + window.scrollY; // include scroll offset for fixed overlay
+              const distances = [
+                Math.hypot(cx - 0, cy - 0),
+                Math.hypot(cx - vw, cy - 0),
+                Math.hypot(cx - 0, cy - vh),
+                Math.hypot(cx - vw, cy - vh)
+              ];
+              const needed = Math.max(...distances) * 1.25; // overshoot to avoid gaps
+              setOverlayRadius(needed);
+              setOverlayActive(true);
+              tgRequestFullscreen();
+              requestFullscreen();
+              window.setTimeout(() => {
+                window.location.href = isAuthenticated ? '/dashboard' : '/login';
+              }, 650);
+            }}
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Mobile layout (existing)
   return (
     <div style={{ paddingTop: wavesHeight + 90 }}>
       <div
