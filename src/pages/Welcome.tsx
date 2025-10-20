@@ -56,7 +56,7 @@ function WelcomeComponent() {
     };
   }, []);
 
-  const personaSrc = useMemo(() => (theme === 'dark' ? '/persona_dark-28b1cb.png' : '/persona_light-28b1cb.png'), [theme]);
+  const personaSrc = useMemo(() => (theme === 'dark' ? '/persona_light.png' : '/persona_dark.png'), [theme]);
   const headingColor = useMemo(() => (theme === 'dark' ? '#FFFFFF' : '#000000'), [theme]);
   const subheadingColor = useMemo(() => (theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : '#6E737C'), [theme]);
   const buttonBgColor = useMemo(() => '#D3191C', []);
@@ -69,40 +69,19 @@ function WelcomeComponent() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px'
+      padding: '0 16px 16px'
     }}>
-      {/* Persona Image */}
-      <div style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '100%',
-        maxWidth: '320px',
-        height: 'auto',
-        zIndex: 1
-      }}>
-        <img
-          src={personaSrc}
-          alt=""
-          style={{
-            width: '100%',
-            height: 'auto',
-            display: 'block'
-          }}
-        />
-      </div>
+      <img
+        src={personaSrc}
+        alt=""
+        style={{ width: '100%', height: 'auto', display: 'block', maxWidth: 480 }}
+      />
 
-      {/* Content */}
       <div style={{
-        position: 'relative',
-        zIndex: 2,
         width: '100%',
-        maxWidth: '390px',
+        maxWidth: 390,
         textAlign: 'center',
-        marginTop: 'auto',
-        marginBottom: 'auto'
+        marginTop: 20
       }}>
         {/* Main Heading */}
         <div
