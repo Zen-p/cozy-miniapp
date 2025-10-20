@@ -26,6 +26,7 @@ function WelcomeComponent() {
 
     applyAll();
 
+    
     let cleanup: (() => void) | null = null;
     const trySubscribe = () => {
       const webApp = getTelegramWebApp();
